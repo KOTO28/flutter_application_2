@@ -62,7 +62,7 @@ jobs:
       - name: Doctor
         run: |
           flutter doctor
-          yes | flutter doctor --android-licenses
+          # yes | flutter doctor --android-licenses
 
       - name: Build APK
         run: |
@@ -74,12 +74,10 @@ jobs:
           name: apk-build
           path: |
             build/app/outputs/flutter-apk/app-release.apk
-            README.md
 
       - name: Build linux
         run: |
           flutter build linux --release
-          ls build/linux/
 
       - name: Upload linux-build
         uses: actions/upload-artifact@v4
