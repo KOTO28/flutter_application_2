@@ -1,4 +1,4 @@
-name: Flutter iOS Build
+name: Flutter Build
 
 on:
   push:
@@ -55,7 +55,9 @@ jobs:
         run: flutter pub get
 
       - name: Doctor
-        run: flutter doctor
+        run: |
+          flutter doctor
+          yes | flutter doctor --android-licenses
 
       - name: Build APK
         run: |
