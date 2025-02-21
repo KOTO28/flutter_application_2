@@ -25,8 +25,7 @@ jobs:
           flutter build ios --release --no-codesign
 
       - name: Upload build artifact (optional)
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ios-build
-          path: README.md
-          # path: build/ios/iphoneos/*.ipa
+          path: build/ios/iphoneos/*.ipa
