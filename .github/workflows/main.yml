@@ -27,6 +27,7 @@ jobs:
       - name: Make ipa file
         run: |
           ls build/ios/iphoneos/
+          mkdir Payload
           cp -r build/ios/iphoneos/Runner.app Payload/Runner.app
           zip -r app.ipa Payload
 
