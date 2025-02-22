@@ -55,7 +55,7 @@ jobs:
         with:
           name: macOS-build
           path: |
-            build/macos/Build/Products/Release/Runner.app
+            build/macos/Build/Products/Release/flutter_application_2.app
 
   build-android-web-linux:
     runs-on: ubuntu-latest
