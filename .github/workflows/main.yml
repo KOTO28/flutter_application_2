@@ -73,7 +73,6 @@ jobs:
       - name: Doctor
         run: |
           flutter doctor
-          # yes | flutter doctor --android-licenses
 
       - name: Build APK
         run: |
