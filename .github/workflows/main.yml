@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-ios:
+  build-ios-macos:
     runs-on: macos-latest
     steps:
       - name: Checkout repository
@@ -34,13 +34,24 @@ jobs:
           cp -r build/ios/iphoneos/Runner.app Payload/Runner.app
           zip -r flutter_application_2.ipa Payload
 
-      - name: Upload build artifact
+      - name: Upload ios-build
         uses: actions/upload-artifact@v4
         with:
           name: ios-build
           path: flutter_application_2.ipa
 
-  build-android-linux:
+      - name: Build macOS
+        run: |
+          flutter build macos --release
+
+      - name: Upload macOS-build
+        uses: actions/upload-artifact@v4
+        with:
+          name: macOS-build
+          path: |
+            build/macos/Build/Products/Release/Runner.app
+
+  build-android-web-linux:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -75,6 +86,17 @@ jobs:
           path: |
             build/app/outputs/flutter-apk/app-release.apk
 
+      - name: Build web
+        run: |
+          flutter build web --release
+
+      - name: Upload web-build
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-build
+          path: |
+            build/web/
+
       - name: Build linux
         run: |
           flutter build linux --release
@@ -85,3 +107,30 @@ jobs:
           name: linux-build
           path: |
             build/linux/x64/release/bundle/
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Doctor
+        run: flutter doctor
+
+      - name: Build Windows
+        run: flutter build windows --release
+
+      - name: Upload windows-build
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-build
+          path: |
+            build\windows\x64\runner\Release\
